@@ -1,20 +1,18 @@
 let startGame = false
-class Ship{
+class Cupid{
     constructor(){
         this.x= canvas.width /2,
         this.y= canvas.height /2,
         this.speedX = 0,
         this.speedY = 0,
-        this.radius= 20,
-        this.color= 'red'
+        this.radius= 60,
+        this.image = new Image()
+        this.image.src = '../images/cupid01.png'
         this.movement = false
     }
     draw(){
-        ctx.beginPath();
-        ctx.arc(this.x, this.y, this.radius, 0, Math.PI *2);
-        ctx.closePath();
-        ctx.fillStyle = this.color;
-        ctx.fill();
+        ctx.drawImage(this.image, this.x, this.y, this.radius, this.radius)
+
 
         this.x += this.speedX;
         this.y += this.speedY;
@@ -35,7 +33,7 @@ class Ship{
     moveUp() {
         if(this.speedY > -4){
             // this.speedX = 0;
-            this.speedY -= .1;
+            this.speedY -= .2;
             this.movement = true
         }
         else{
@@ -46,7 +44,7 @@ class Ship{
     moveDown() {
         if (this.speedY < 4) {
             // this.speedX = 0;
-            this.speedY += .1;
+            this.speedY += .2;
             this.movement = true
         } else {
             // this.speedX = 0;
@@ -55,7 +53,7 @@ class Ship{
     }
     moveRight() {
         if (this.speedX < 4){
-            this.speedX += .1
+            this.speedX += .2
             this.movement = true
             
         }
@@ -67,7 +65,7 @@ class Ship{
     }
     moveLeft() {
         if (this.speedX > -4){
-            this.speedX -= .1
+            this.speedX -= .2
         }
         else{this.speedX = -4;
         // this.speedY = 0;}
@@ -75,7 +73,7 @@ class Ship{
     }
 }
 }
-const player = new Ship()
+const player = new Cupid()
 
 function draw(){
     ctx.clearRect(0,0, canvas.width, canvas.height);

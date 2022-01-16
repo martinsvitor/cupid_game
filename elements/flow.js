@@ -1,76 +1,101 @@
 // const projectiles = new Projectile(1)
-let projectiles = []
-
- // Creating animation
+// arrows.push(new Projectile({
+    //     x:1,
+    //     y:1,
+    // }, 0))
     
- function update() {
+    const arrows =[] // Quiver (Array of arrows to limit shots)
+    const targets =[] // All targets together
+    const desireables = [] // Good Targets, earns you points for hitting
+    const undesireables = [] // Bad Targets, takes away lifes for every hit
+    
+    // Creating targets
+    function spawnTargets (){
+        
+            // setInterval(() => {
+            targets.push(new Targets(null))
+            
+            console.log(targets)
+        // }, 1000)
+    };
+
+    // let enemies = new Array(10).fill().map((_, index) => new Targets(index))
+
+    // Creating animation
+    
+    let updateId
+    function update() {
+        updateId = requestAnimationFrame(update) //Will be used to freeze the game when player runs out of lives
     if(startGame){
         ctx.clearRect(0,0, canvas.width, canvas.height);
         player.draw();
-        // enemies.draw();
-        projectiles.forEach(projectile =>{
-            projectile.draw()
+      
+        arrows.forEach((arrow, arrowIndex) =>{
+                arrow.traceShot()
+                this.id = arrowIndex
         })
-        enemies.forEach(enemy => {
-            enemy.draw();
-            enemy.move()
+        targets.forEach((target, targetIndex) => {
+            target.draw();
+            target.move(1)
+            if(distance(target,target) < target.radius+1){
+                target.move(-1)
+
+            }
+            arrows.forEach((arrow, arrowIndex) =>{
+                if(distance(arrow,target) < arrow.radius + target.radius + 1){
+                    targets.splice(targetIndex, 1)
+                    arrows.splice(arrowIndex,1)
+                }
+            })
         })
         
     }
     
-requestAnimationFrame(update)
+    requestAnimationFrame(update)
 }
+
 
 addEventListener('click',(event)=>{
-    console.log(event)
-if (!startGame) {
-    player.draw()
-    startGame = true
-}
-else{
-    projectiles.push(new Projectile(1, event.x, event.y))
-    console.log(projectiles)
-}
-
-})
-addEventListener('keydown', (e)=>{
-    // if(e.key === 'ArrowUp'){
-    //     player.moveUp()
-    // }
+    const angle = Math.atan2(event.clientY - player.y, event.clientX - player.x)
+    const directionX = Math.cos(angle)
+    const directionY = Math.sin(angle)
     
-switch(e.key){
+    
+    
+    if (!startGame) {
+        player.draw()
+        startGame = true
+    }
+    else{
+        arrows.push(new Projectile(player.x+20, player.y, 25, {
+            x: directionX,
+            y: directionY
+        }, null)) 
+    }
+})
+
+addEventListener('keydown', (e)=>{
+    
+    switch(e.code){
         case 'ArrowUp':
-        case 'w':
-        case 'W':
+        case 'KeyW':
             player.moveUp()
-            console.log(player.speedX, player.speedY)
             break;
         case 'ArrowDown':
-        case 's':
-        case 'S':
+        case 'KeyS':
             player.moveDown()
-            console.log(player.speedX, player.speedY)
             break;
         case 'ArrowLeft':
-        case 'a':
-        case 'A':
+        case 'KeyA':
             player.moveLeft()
-            console.log(player.speedX, player.speedY)
             break;
         case 'ArrowRight':
-        case 'd':
-        case 'D':
+        case 'KeyD':
             player.moveRight()
-            console.log(player.speedX, player.speedY)
-        break;
+            break;
 
 }
 
 })
-
-// addEventListener('keydown', (e)=> {
-//     if(e.key === 'ArrowLeft'){
-//         player.moveLeft()
-//     }
-// })
 update()
+spawnTargets()
