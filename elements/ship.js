@@ -1,4 +1,5 @@
-let startGame = false
+const imgArray = ['../images/cupid01.png','../images/cupid02.png']
+
 class Cupid{
     constructor(){
         this.x= canvas.width /2,
@@ -7,7 +8,7 @@ class Cupid{
         this.speedY = 0,
         this.radius= 60,
         this.image = new Image()
-        this.image.src = '../images/cupid01.png'
+        this.image.src = imgArray[0]
         this.movement = false
     }
     draw(){

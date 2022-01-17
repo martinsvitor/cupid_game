@@ -9,7 +9,17 @@ body {
     height: 100vh;
     overflow: hidden;
 }
+#board{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #75215E;
+    height: 100%;
+    width: 100%;
+
+}
 
 canvas {
-    background-color: #313131;
+    background-color: #F084D3;
+    border: black dotted 5px;
 }
