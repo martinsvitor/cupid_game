@@ -1,82 +1,58 @@
+const desireableImages =['../images/char01.png','../images/char02.png','../images/char03.png', '../images/char04.png', '../images/char05.png', '../images/char06.png']
 class Desireables {
-    constructor(index){
-        this.id = index,
-        this.radius = 60;
-        this.x= Math.random(),
-        this.y= 0- 100,
-        this.speedX = 0,
-        this.speedY = 0,
-        this.color = 'blue'
+    constructor(index, imgId){
+            this.id = index;
+            this.position ={
+                x: Math.random()*500,
+                y: -100
+            };
+            this.velocity ={
+                x: this.position.x > 250 ? -Math.random(): Math.random(),
+                y: -1
+            }
+            this.image = new Image()
+            this.image.src = desireableImages[imgId]
+            this.width = this.image.width
+            this.height = this.image.height
+            this.points = 10
+                        
     }
     draw(){
-        ctx.beginPath();
-        ctx.arc(this.x, this.y, this.radius, 0, Math.PI *2);
-        ctx.closePath();
-        ctx.fillStyle = this.color;
-        ctx.fill();
-        
-        this.x += this.speedX;
-        this.y += this.speedY;
-        
-        // if (this.x > canvas.width + this.radius) {
-        //     this.x = - this.radius
-        // }
-        // if (this.x < - this.radius) {
-        //     this.x = canvas.width + this.radius 
-        // }
-        // if (this.y > canvas.height + this.radius) {
-        //     this.y = - this.radius
-        // }
-        // if (this.y < -this.radius) {
-        //     this.y = canvas.height + this.radius
-        // }
+        ctx.drawImage(this.image, this.position.x, this.position.y, this.width, this.height)
+             
     }
     move(offset){
-        if (this.speedX === 0) {
-            this.speedX = (Math.random()- 0.5) *2 *offset
-            this.speedY = (Math.random() -.5) *2 *offset
-        }
-        // else if(this.speedY < 7 || this.speedX < 7 || this.speedX < -7 || this.speedY < -7) {
-            //     this.speedX += (Math.random() - .5)*.5
-        //     this.speedY += (Math.random() - .5)*.5
-        // }
-        // else{
-            //     this.speedX = 7
-            //     this.speedY = 7
-            // }
-            
+        this.position.x += this.velocity.x
+        this.position.y -= this.velocity.y    
         }
     }
     
     class Toxics {
         constructor(index){
-            this.id = index,
-            this.x= Math.random(),
-            this.y= Math.random(),
-            this.speedX = 0,
-            this.speedY = 0,
-            this.image = new Image()
-            this.image.src = '../images/troll.png'
-            this.radius = (Math.random()* 2)+ player.radius;
+            this.id = index;
+            this.position ={
+                x: 100,
+                y: 100,
+            };
+            this.velocity ={
+                x: 0,
+                y: 0
+            }
+            const image3 = new Image()
+            image3.src = '../images/troll.png'
+            image3.onload = () => {
+                this.image = image3
+                this.width = this.image.width
+                this.height = this.image.height
+
+            }
         }
         draw(){
-            ctx.drawImage(this.image, this.x, this.y, this.radius, this.radius)
+            if(this.image){ctx.drawImage(this.image, this.x, this.y, this.width, this.height)}
             
-            this.x += this.speedX;
-            this.y += this.speedY;
+            this.position.x += this.velocity.x;
+            this.position.y += this.velocity.y;
             
-            // if (this.x > canvas.width + this.radius) {
-            //     this.x = - this.radius
-            // }
-            // if (this.x < - this.radius) {
-            //     this.x = canvas.width + this.radius 
-            // }
-            // if (this.y > canvas.height + this.radius) {
-            //     this.y = - this.radius
-            // }
-            // if (this.y < -this.radius) {
-            //     this.y = canvas.height + this.radius
-            // }
         }
         move(offset){
             if (this.speedX === 0) {

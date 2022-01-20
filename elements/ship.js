@@ -6,29 +6,34 @@ class Cupid{
         this.y= canvas.height /2,
         this.speedX = 0,
         this.speedY = 0,
-        this.radius= 60,
         this.image = new Image()
         this.image.src = imgArray[0]
+        this.width= this.image.width,
+        this.height = this.image.height
         this.movement = false
     }
     draw(){
-        ctx.drawImage(this.image, this.x, this.y, this.radius, this.radius)
+        ctx.drawImage(this.image, this.x, this.y, this.width, this.height)
 
 
         this.x += this.speedX;
         this.y += this.speedY;
 
-        if (this.x > canvas.width + this.radius) {
-            this.x = - this.radius
+        if (this.x > canvas.width - this.width) {
+            this.x = canvas.width - this.width
+            this.speedX = 0
         }
-        if (this.x < - this.radius) {
-            this.x = canvas.width + this.radius 
+        if (this.x < 0) {
+            this.x = 0 
+            this.speedX = 0
         }
-        if (this.y > canvas.height + this.radius) {
-            this.y = - this.radius
+        if (this.y > canvas.height - this.height) {
+            this.y = canvas.height- this.height
+            this.speedY = 0
         }
-        if (this.y < -this.radius) {
-            this.y = canvas.height + this.radius
+        if (this.y < 0) {
+            this.y = 0
+            this.speedY = 0
         }
     }
     moveUp() {
