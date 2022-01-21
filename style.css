@@ -1,5 +1,9 @@
 * {
     box-sizing: border-box;
+    font-family: hydrophilia-iced, sans-serif;
+    font-weight: 400;
+
+font-style: normal;
 }
 
 body {
@@ -8,18 +12,47 @@ body {
     width: 100vw;
     height: 100vh;
     overflow: hidden;
+    background-image: url("./images/Background.jpg");
+    background-size: 70%;
+    
 }
 #board{
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: #75215E;
+    /* background-color: #75215E; */
     height: 100%;
     width: 100%;
 
 }
+/* .start-game{
+    width: 205px;
+    height: 56px;
+    left: 763px
+    top: 673px
+     
+     background: #4b0086;
+     border-radius: 36px;
+} */
+/* .restart{
+    width: 289px;
+    height: 56px;
+    left: 720px
+    top: 673px
+     
+     background: #4b0086; 
+     border-radius: 36px;
+} */
 
 canvas {
-    background-color: #F084D3;
+    background-color: #f5d4f0;
     border: black dotted 5px;
 }
+
+#score{
+    position: fixed;
+    left: 1023px;
+    top: 341px;
+    font-size: 34px;
+    user-select: none;
+ } 

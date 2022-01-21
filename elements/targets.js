@@ -29,44 +29,76 @@ class Desireables {
     
     class Toxics {
         constructor(index){
-            this.id = index;
-            this.position ={
-                x: 100,
-                y: 100,
-            };
-            this.velocity ={
-                x: 0,
-                y: 0
-            }
-            const image3 = new Image()
-            image3.src = '../images/troll.png'
-            image3.onload = () => {
-                this.image = image3
+                this.id = index;
+                this.position ={
+                    x: Math.random()*500,
+                    y: -100
+                };
+                this.velocity ={
+                    x: this.position.x > 250 ? -Math.random(): Math.random(),
+                    y: -1
+                }
+                this.image = new Image()
+                this.image.src = '../images/troll.png'
                 this.width = this.image.width
                 this.height = this.image.height
-
-            }
+                this.points = 10
+                            
         }
         draw(){
-            if(this.image){ctx.drawImage(this.image, this.x, this.y, this.width, this.height)}
-            
-            this.position.x += this.velocity.x;
-            this.position.y += this.velocity.y;
-            
+            ctx.drawImage(this.image, this.position.x, this.position.y, this.width, this.height)
+                 
         }
         move(offset){
-            if (this.speedX === 0) {
-                this.speedX = 1 *offset
-                this.speedY = 1 *2 *offset
+            this.position.x += this.velocity.x
+            this.position.y -= this.velocity.y    
             }
-            // else if(this.speedY < 7 || this.speedX < 7 || this.speedX < -7 || this.speedY < -7) {
-                //     this.speedX += (Math.random() - .5)*.5
-            //     this.speedY += (Math.random() - .5)*.5
-            // }
-            // else{
-                //     this.speedX = 7
-                //     this.speedY = 7
-                // }
+        }
+        
+        class Heart{
+            constructor(id){
+                this.image = new Image()
+                this.image.src ='../images/life-borderless.png'
+                this.width = this.image.width *.4
+                this.height = this.image.height *.4
+                this.position ={
+                    x: 50,
+                    y: 20
+                }
+                this.index = id
+                this.lives = 5
+            }
+            draw(){
+                ctx.drawImage(this.image, this.position.x, this.position.y, this.width, this.height)
+                ctx.font = '20px hydrophilia-iced';
+                ctx.fillStyle = '#1e0035'
+                ctx.fillText(`x${this.lives}`, this.position.x*1.6, this.position.y*2)
+            }
+        }
+
+
+        function drawHeart(){
+            heartsList.forEach((heart, heartIndex) => {
+                switch(heartIndex){
+                    case 0:
+                        heart.draw();
+                        break;
+                    case 1:
+                        heart.position.x = 10
+                        heart.draw();
+                        break;
+                    case 2:
+                        heart.position.x += heart.width +heart.width
+                        heart.draw();
+                        break;
+                    case 3:
+                        heart.position.x += heart.width +heart.width + heart.width
+                        heart.draw();
+                        break;
+                    case 4:
+                        heart.position.x += heart.width +heart.width + heart.width +heart.width
+                        heart.draw();
+                }
                 
-            }
+            })
         }

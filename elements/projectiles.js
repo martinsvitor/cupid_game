@@ -18,15 +18,18 @@ class Projectile{
 
         }
         this.velocity= velocity
+        this.rotation = 0
         
         
         
     }
     draw(){
-        if(this.image){ ctx.drawImage(this.image, this.position.x, this.position.y, this.width, this.height)}
-
-        // this.x += this.speedX;
-        // this.y += this.speedY;
+        if(this.image){
+            ctx.drawImage(this.image, this.position.x, this.position.y, this.width, this.height)
+        
+        }
+        
+        
     }
     traceShot(){
         this.draw()

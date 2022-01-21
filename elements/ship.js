@@ -2,14 +2,14 @@ const imgArray = ['../images/cupid01.png','../images/cupid02.png']
 
 class Cupid{
     constructor(){
-        this.x= canvas.width /2,
-        this.y= canvas.height /2,
         this.speedX = 0,
         this.speedY = 0,
         this.image = new Image()
         this.image.src = imgArray[0]
         this.width= this.image.width,
         this.height = this.image.height
+        this.x= canvas.width /2 -this.width/2,
+        this.y= canvas.height /2 -this.height/2,
         this.movement = false
     }
     draw(){

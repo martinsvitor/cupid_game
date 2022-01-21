@@ -1,37 +1,60 @@
+    // const scene = new Scene();
     const arrows =[] // Quiver (Array of arrows to limit shots)
     const targets =[] // All targets together
     const desireables = [] // Good Targets, earns you points for hitting
-    const undesireables = new Array(10) // Bad Targets, takes away lifes for every hit
+    const undesireables = [] // Bad Targets, takes away lifes for every hit
     let score = 0;
-    
+    let heartsList = new Array(5).fill().map((_,index) => new Heart(50,50, index));
+    const highscores = [];
+
+
+    function checkHighscore(score){
+        for(let i =0; i < 3; i++){
+            if(score> highscores[i]){
+                highscores.push(score)
+
+            }
+        }
+        return highscores.sort((a,b) => b-a)
+    }
     // Creating targets
     function spawnTargets (){
-       let imageId = Math.floor(Math.random()*5)
+       let imageId = Math.floor(Math.random()*6)
+       console.log(imageId)
                 desireables.push(new Desireables(1, imageId))
+                undesireables.push(new Toxics())
                     
     };
 
     // Creating animation
+
         
     function update() {
+        ctx.clearRect(0,0, canvas.width, canvas.height);
         
         if(startGame){
-            ctx.clearRect(0,0, canvas.width, canvas.height);
             player.draw();
+            // drawHeart()
             
-      
-        arrows.forEach((arrow, arrowIndex) =>{
-            arrow.traceShot()
-            this.id = arrowIndex
-        })
-        undesireables.forEach((target, targetIndex) => {
-            target.draw();
-            target.move(1)
             
             arrows.forEach((arrow, arrowIndex) =>{
-                if(distance(arrow,target) < arrow.height + target.height -15||distance(arrow,target) < arrow.width + target.width -15){
+                arrow.traceShot()
+                this.id = arrowIndex
+                
+            })
+            undesireables.forEach((target, targetIndex) => {
+                target.draw();
+                target.move(1)
+                if(target.position.x > canvas.width + target.width || target.position.y > canvas.height + target.height){
+                undesireables.splice(targetIndex,1)
+            }
+            
+            arrows.forEach((arrow, arrowIndex) =>{
+                if(distance(arrow,target) < arrow.height + target.height/10 ||distance(arrow,target) < arrow.width + target.width/10 ){
                     undesireables.splice(targetIndex, 1)
                     arrows.splice(arrowIndex,1)
+                    heartsList[0].lives -=1
+                    
                 }
             })
         })
@@ -43,11 +66,11 @@
                 desireables.splice(targetIndex,1)
             }
             
-           
+            
             arrows.forEach((arrow, arrowIndex) =>{
-                // console.log(distance(arrow,target))
+                
                 if(distance(arrow,target) < arrow.height + target.height/2 ||distance(arrow,target) < arrow.width + target.width/10 ){
-                    score ++;
+                    score += target.points
                     document.querySelector('#score').innerHTML= `Score is: ${score}`
                     desireables.splice(targetIndex, 1)
                     arrows.splice(arrowIndex,1)
@@ -57,20 +80,24 @@
                 }
             })
         })
-        // if(target.x > canvas.width || target.x < 0 || target.y > canvas.height || target.y < 0 ){
-            // desireables.splice(target, 1)
-                    // }
-        
     }
-    // console.log(desireables)
-    requestAnimationFrame(update)
+    heartsList[0].draw()
+    if(heartsList[0].lives > 0){
+        requestAnimationFrame(update)
+    }
+    else{
+        checkHighscore(score)
+        startGame=false
+        ctx.clearRect(0, 0, this.canvas.width, this.canvas.height)
+        ctx.fillText(`You scored ${score} points`, canvas.width/2 -60, canvas.height/2)
+    }
 }
-function shootArrows(x,y){
-    arrows.push(new Projectile(player.x+ 18, player.y + 10, {
-        x,y
-    }, null))
-   
-}
+        
+        function shootArrows(x,y){
+            arrows.push(new Projectile(player.x+15, player.y, {
+                x,y
+        }, null))
+    }
 
 addEventListener('click',(event)=>{
     const angle = Math.atan2(event.offsetY - player.y, event.offsetX - player.x)
@@ -88,10 +115,6 @@ addEventListener('click',(event)=>{
     }
     else{
         shootArrows(directionX, directionY)
-        // arrows.push(new Projectile(player.x+ 18, player.y + 10, {
-        //     x: directionX,
-        //     y: directionY
-        // }, null)) 
     }
 })
 
@@ -101,24 +124,22 @@ addEventListener('keydown', (e)=>{
     switch(e.code){
         case 'ArrowUp':
         case 'KeyW':
-            // changePlayerImg()
-            player.image.src = imgArray[1]
+            player.image.src = imgArray[0] ? imgArray[1]: imgArray[0]
             player.moveUp()
             break;
         case 'ArrowDown':
         case 'KeyS':
-            // changePlayerImg()
-            player.image.src = imgArray[0]
+            player.image.src = imgArray[1] ? imgArray[0] : imgArray[1]
             player.moveDown()
             break;
         case 'ArrowLeft':
         case 'KeyA':
-            // changePlayerImg()
+            player.image.src = imgArray[1] ? imgArray[0] : imgArray[1]
             player.moveLeft()
             break;
         case 'ArrowRight':
         case 'KeyD':
-            // changePlayerImg()
+            player.image.src = imgArray[0] ? imgArray[1] : imgArray[0]
             player.moveRight()
             break;
         case 'Space':
@@ -131,9 +152,8 @@ addEventListener('keydown', (e)=>{
 
 }
 
+
 })
 
 update()
-//         setInterval(() => {
-//             spawnTargets()
-//         }, 1000)
+
