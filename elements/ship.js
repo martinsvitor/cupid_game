@@ -1,4 +1,4 @@
-const imgArray = ['../images/Background.jpg','../images/cupid02.png']
+const imgArray = ['../assets/cupid01.png','../assets/cupid02.png']
 
 class Cupid{
     constructor(){

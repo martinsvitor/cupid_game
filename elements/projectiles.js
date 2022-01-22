@@ -10,7 +10,7 @@ class Projectile{
         // this.speedX = 0,
         // this.speedY = 0,
         const image4 = new Image()
-        image4.src = '../images/arrow.png'
+        image4.src = '../assets/arrow.png'
         image4.onload = () => {
             this.image = image4
             this.width= this.image.width * .5

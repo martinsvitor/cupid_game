@@ -12,7 +12,7 @@ body {
     width: 100vw;
     height: 100vh;
     overflow: hidden;
-    background-image: url("./images/Background.jpg");
+    background-image: url("./assets/Background.jpg");
     background-size: 70%;
     
 }
