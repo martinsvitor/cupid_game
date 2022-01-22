@@ -59,10 +59,10 @@ class Desireables {
             constructor(id){
                 this.image = new Image()
                 this.image.src ='../images/life-borderless.png'
-                this.width = this.image.width *.4
-                this.height = this.image.height *.4
+                this.width = this.image.width *.5
+                this.height = this.image.height *.5
                 this.position ={
-                    x: 50,
+                    x: 30,
                     y: 20
                 }
                 this.index = id
@@ -72,7 +72,7 @@ class Desireables {
                 ctx.drawImage(this.image, this.position.x, this.position.y, this.width, this.height)
                 ctx.font = '20px hydrophilia-iced';
                 ctx.fillStyle = '#1e0035'
-                ctx.fillText(`x${this.lives}`, this.position.x*1.6, this.position.y*2)
+                ctx.fillText(`x${this.lives}`, this.position.x*2.2, this.position.y*2)
             }
         }
 

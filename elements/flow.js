@@ -71,7 +71,7 @@
                 
                 if(distance(arrow,target) < arrow.height + target.height/2 ||distance(arrow,target) < arrow.width + target.width/10 ){
                     score += target.points
-                    document.querySelector('#score').innerHTML= `Score: ${score}`
+                    document.querySelector('#score').innerHTML= `${score}`
                     desireables.splice(targetIndex, 1)
                     arrows.splice(arrowIndex,1)
                 }
@@ -85,9 +85,10 @@
         ctx.clearRect(0, 0, this.canvas.width, this.canvas.height)
         ctx.fillText('You are the cupid!', canvas.width/2 -80, 150)
         ctx.fillText('Make people fall in love', canvas.width/2-105, 200)
-        ctx.fillText('hitting them with your arrows', canvas.width/2-135, 230)
-        ctx.fillText('Avoid hitting the toxic ogres!', canvas.width/2-130, 300)
-        ctx.fillText('Press Enter or left-click to start the game', canvas.width/2 -180, canvas.height-100)
+        ctx.fillText('hitting them with your arrows.', canvas.width/2-135, 230)
+        ctx.fillText('Avoid targeting the toxic ogres!', canvas.width/2-140, 260)
+        ctx.font = '25px hydrophilia-iced'
+        ctx.fillText('Press Enter or left-click to start the game', canvas.width/2 -230, canvas.height-100)
     }
     heartsList[0].draw()
     if(heartsList[0].lives > 0){

@@ -51,8 +51,8 @@ canvas {
 
 #score{
     position: fixed;
-    left: 1023px;
-    top: 341px;
-    font-size: 34px;
+    left: 900px;
+    top: 80px;
+    font-size: 28px;
     user-select: none;
  } 
