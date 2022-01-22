@@ -1,4 +1,4 @@
-const desireableImages =['../assets/char01.png','../assets/char02.png','../assets/char03.png', '../assets/char04.png', '../assets/char05.png', '../assets/char06.png']
+const desireableImages =['./src/char01.png','./src/char02.png','./src/char03.png', './src/char04.png', './src/char05.png', './src/char06.png']
 class Desireables {
     constructor(index, imgId){
             this.id = index;
@@ -39,7 +39,7 @@ class Desireables {
                     y: -1
                 }
                 this.image = new Image()
-                this.image.src = '../assets/troll.png'
+                this.image.src = './src/troll.png'
                 this.width = this.image.width
                 this.height = this.image.height
                 this.points = 10
@@ -58,7 +58,7 @@ class Desireables {
         class Heart{
             constructor(id){
                 this.image = new Image()
-                this.image.src ='../assets/life-borderless.png'
+                this.image.src ='./src/life-borderless.png'
                 this.width = this.image.width *.5
                 this.height = this.image.height *.5
                 this.position ={
