@@ -5,9 +5,10 @@
     const undesireables = [] // Bad Targets, takes away lifes for every hit
     let score = 0;
     let heartsList = new Array(5).fill().map((_,index) => new Heart(50,50, index));
+    const printScore = document.querySelector('#score')
     const highscores = [];
-
-
+    
+    
     function checkHighscore(score){
         for(let i =0; i < 3; i++){
             if(score> highscores[i]){
@@ -21,27 +22,29 @@
     function spawnTargets (){
        let imageId = Math.floor(Math.random()*6)
        console.log(imageId)
-                desireables.push(new Desireables(1, imageId))
-                undesireables.push(new Toxics())
-                    
-            };
-            
-            // Creating animation
-            
-            
-            function update() {
-                ctx.clearRect(0,0, canvas.width, canvas.height);
+       desireables.push(new Desireables(1, imageId))
+       undesireables.push(new Toxics())
+       
+    };
+    
+    // Creating animation
+    
+    
+    function update() {
+        ctx.clearRect(0,0, canvas.width, canvas.height);
         
-                if(startGame){
-                    player.draw();
-                    // drawHeart()
+        if(startGame){
+            player.draw();
+            // drawHeart()
+            heartsList[0].draw()
+            printScore.innerHTML =`${score}`
                     
                     
-            arrows.forEach((arrow, arrowIndex) =>{
-                arrow.traceShot()
-                this.id = arrowIndex
+                    arrows.forEach((arrow, arrowIndex) =>{
+                        arrow.traceShot()
+                        this.id = arrowIndex
                 
-            })
+                    })
             undesireables.forEach((target, targetIndex) => {
                 target.draw();
                 target.move(1)
@@ -51,13 +54,13 @@
                 
                 arrows.forEach((arrow, arrowIndex) =>{
                     if(distance(arrow,target) < arrow.height + target.height/10 ||distance(arrow,target) < arrow.width + target.width/10 ){
-                    undesireables.splice(targetIndex, 1)
-                    arrows.splice(arrowIndex,1)
-                    heartsList[0].lives -=1
-                    
-                }
+                        undesireables.splice(targetIndex, 1)
+                        arrows.splice(arrowIndex,1)
+                        heartsList[0].lives -=1
+                        
+                    }
+                })
             })
-        })
         desireables.forEach((target, targetIndex) => {
             
             target.draw();
@@ -71,7 +74,7 @@
                 
                 if(distance(arrow,target) < arrow.height + target.height/2 ||distance(arrow,target) < arrow.width + target.width/10 ){
                     score += target.points
-                    document.querySelector('#score').innerHTML= `${score}`
+                    printScore.innerHTML= `${score}`
                     desireables.splice(targetIndex, 1)
                     arrows.splice(arrowIndex,1)
                 }
@@ -80,9 +83,12 @@
                 }
             })
         })
+        heartsList[0].draw()
+            printScore.innerHTML =`${score}`
     }
     else if(!startGame){
         ctx.clearRect(0, 0, this.canvas.width, this.canvas.height)
+        ctx.font = '20px hydrophilia-iced'
         ctx.fillText('You are the cupid!', canvas.width/2 -80, 150)
         ctx.fillText('Make people fall in love', canvas.width/2-105, 200)
         ctx.fillText('hitting them with your arrows.', canvas.width/2-135, 230)
@@ -90,7 +96,7 @@
         ctx.font = '25px hydrophilia-iced'
         ctx.fillText('Press Enter or left-click to start the game', canvas.width/2 -230, canvas.height-100)
     }
-    heartsList[0].draw()
+    
     if(heartsList[0].lives > 0){
         requestAnimationFrame(update)
     }
