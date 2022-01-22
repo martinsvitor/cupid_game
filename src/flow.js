@@ -89,12 +89,15 @@
     else if(!startGame){
         ctx.clearRect(0, 0, this.canvas.width, this.canvas.height)
         ctx.font = '20px hydrophilia-iced'
-        ctx.fillText('You are the cupid!', canvas.width/2 -80, 150)
-        ctx.fillText('Make people fall in love by', canvas.width/2-120, 200)
-        ctx.fillText('hitting them with your arrows.', canvas.width/2-130, 230)
-        ctx.fillText('Avoid targeting the toxic ogres!', canvas.width/2-140, 260)
+        ctx.fillText('You are the cupid!', canvas.width/2 -70, 100)
+        ctx.fillText('Make people fall in love by', canvas.width/2-105, 130)
+        ctx.fillText('hitting them with your arrows.', canvas.width/2-115, 160)
+        ctx.fillText('Avoid targeting the toxic ogres!', canvas.width/2-120, 190)
+        ctx.fillText('Instructions:', canvas.width/2-40, 250)
+        ctx.fillText('Move with the arrow keys or with WASD.', canvas.width/2-170, 280)
+        ctx.fillText('Shoot with left click.', canvas.width/2-80, 310)
         ctx.font = '25px hydrophilia-iced'
-        ctx.fillText('Press Enter or left-click to start the game', canvas.width/2 -230, canvas.height-100)
+        ctx.fillText('Press Enter or left-click to start the game', canvas.width/2 -200, canvas.height-100)
     }
     
     if(heartsList[0].lives > 0){
