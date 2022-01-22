@@ -90,8 +90,8 @@
         ctx.clearRect(0, 0, this.canvas.width, this.canvas.height)
         ctx.font = '20px hydrophilia-iced'
         ctx.fillText('You are the cupid!', canvas.width/2 -80, 150)
-        ctx.fillText('Make people fall in love', canvas.width/2-105, 200)
-        ctx.fillText('hitting them with your arrows.', canvas.width/2-135, 230)
+        ctx.fillText('Make people fall in love by', canvas.width/2-120, 200)
+        ctx.fillText('hitting them with your arrows.', canvas.width/2-130, 230)
         ctx.fillText('Avoid targeting the toxic ogres!', canvas.width/2-140, 260)
         ctx.font = '25px hydrophilia-iced'
         ctx.fillText('Press Enter or left-click to start the game', canvas.width/2 -230, canvas.height-100)
