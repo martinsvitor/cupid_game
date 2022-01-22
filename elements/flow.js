@@ -24,19 +24,19 @@
                 desireables.push(new Desireables(1, imageId))
                 undesireables.push(new Toxics())
                     
-    };
-
-    // Creating animation
-
-        
-    function update() {
-        ctx.clearRect(0,0, canvas.width, canvas.height);
-        
-        if(startGame){
-            player.draw();
-            // drawHeart()
+            };
+            
+            // Creating animation
             
             
+            function update() {
+                ctx.clearRect(0,0, canvas.width, canvas.height);
+        
+                if(startGame){
+                    player.draw();
+                    // drawHeart()
+                    
+                    
             arrows.forEach((arrow, arrowIndex) =>{
                 arrow.traceShot()
                 this.id = arrowIndex
@@ -46,11 +46,11 @@
                 target.draw();
                 target.move(1)
                 if(target.position.x > canvas.width + target.width || target.position.y > canvas.height + target.height){
-                undesireables.splice(targetIndex,1)
-            }
-            
-            arrows.forEach((arrow, arrowIndex) =>{
-                if(distance(arrow,target) < arrow.height + target.height/10 ||distance(arrow,target) < arrow.width + target.width/10 ){
+                    undesireables.splice(targetIndex,1)
+                }
+                
+                arrows.forEach((arrow, arrowIndex) =>{
+                    if(distance(arrow,target) < arrow.height + target.height/10 ||distance(arrow,target) < arrow.width + target.width/10 ){
                     undesireables.splice(targetIndex, 1)
                     arrows.splice(arrowIndex,1)
                     heartsList[0].lives -=1
@@ -71,7 +71,7 @@
                 
                 if(distance(arrow,target) < arrow.height + target.height/2 ||distance(arrow,target) < arrow.width + target.width/10 ){
                     score += target.points
-                    document.querySelector('#score').innerHTML= `Score is: ${score}`
+                    document.querySelector('#score').innerHTML= `Score: ${score}`
                     desireables.splice(targetIndex, 1)
                     arrows.splice(arrowIndex,1)
                 }
@@ -81,15 +81,27 @@
             })
         })
     }
+    else if(!startGame){
+        ctx.clearRect(0, 0, this.canvas.width, this.canvas.height)
+        ctx.fillText('You are the cupid!', canvas.width/2 -80, 150)
+        ctx.fillText('Make people fall in love', canvas.width/2-105, 200)
+        ctx.fillText('hitting them with your arrows', canvas.width/2-135, 230)
+        ctx.fillText('Avoid hitting the toxic ogres!', canvas.width/2-130, 300)
+        ctx.fillText('Press Enter or left-click to start the game', canvas.width/2 -180, canvas.height-100)
+    }
     heartsList[0].draw()
     if(heartsList[0].lives > 0){
         requestAnimationFrame(update)
     }
     else{
         checkHighscore(score)
-        startGame=false
         ctx.clearRect(0, 0, this.canvas.width, this.canvas.height)
-        ctx.fillText(`You scored ${score} points`, canvas.width/2 -60, canvas.height/2)
+        ctx.fillText(`Game over!`, canvas.width/2 -60, canvas.height/2 -60)
+        ctx.fillText(`You scored ${score} points`, canvas.width/2 -100, canvas.height/2)
+        setTimeout(() => {
+            startGame=false
+            
+        }, 2000);
     }
 }
         
@@ -121,6 +133,7 @@ addEventListener('click',(event)=>{
 let playerImgId = 0
 addEventListener('keydown', (e)=>{
     
+    
     switch(e.code){
         case 'ArrowUp':
         case 'KeyW':
@@ -148,6 +161,9 @@ addEventListener('keydown', (e)=>{
                 y: Math.sin(-1.57) *4
             }, null)) 
             break;
+            case 'Enter':
+                startGame = true
+                break;
 
 
 }

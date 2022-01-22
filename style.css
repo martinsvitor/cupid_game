@@ -46,7 +46,7 @@ body {
 
 canvas {
     background-color: #f5d4f0;
-    border: black dotted 5px;
+    border: #4b0086 dotted 4px;
 }
 
 #score{
