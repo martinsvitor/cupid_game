@@ -1,4 +1,4 @@
-# cupid_game
+# Cupid Game
 
 Game created by Vitor Martins using Javascript, HTML and CSS.
 
